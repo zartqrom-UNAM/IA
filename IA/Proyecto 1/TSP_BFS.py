@@ -22,6 +22,7 @@ ciudades = {'Sib':4, 'Ora': 2, 'Ara':3, 'Zer':2, 'Tim':2, 'Lug':2, 'Meh':2, 'Dro
     'Cra':3, 'Rim':3, 'Pit':3, 'Fag':2, 'Bu':4, 'Giu':1, 'Urz':3, 'Hir':2, 'Efo':1, 'Vas':2, 'Ia':2, 'Nea':1}
 soluciones = []
 visitados = {'Giu':'Giu','Bu':'Giu','Pit':'Bu','Rim':'Pit'}
+
 def verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final):
     nodo_actual_aux = nodo_actual #{key:value}
     #Corrobora el tipo de entrada
@@ -52,8 +53,12 @@ def verificacion_num_hijos(nodo_actual):
     nodo_actual_aux = nodo_actual #{key:value}
     #Se obtiene el dato para conocer quien es el hijo
     hijo = list(nodo_actual_aux.values())
+    #Se obtiene el nieto para obtener su numero de hijos guardado en el diccionario ciudades
     nieto = visitados.get(hijo)
-
+    num_hijos = ciudades.get(nieto)
+    if num_hijos <= 2:
+        return 1
+    return 0
 
 
 verificar_nodo_final({'Sib':'Rim'},'Giu','Sib')
