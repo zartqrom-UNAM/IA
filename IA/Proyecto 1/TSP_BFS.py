@@ -1,3 +1,4 @@
+#Diccionarios de cada ciudad con sus hijos y respectivos costos
 Sib = {'Fag':99, 'Rim':80, 'Ara':140, 'Ora':151}
 Ora = {'Sib':151, 'Zer':71}
 Zer = {'Ora':71, 'Ara':75}
@@ -18,9 +19,12 @@ Efo = {'Hir':86}
 Vas = {'Urz':142, 'Ia':92}
 Ia = {'Vas':92, 'Nea':87}
 Nea = {'Ia':87}
+#Diccionario que almacena las ciudades y sus correspondientes numeros de hijos
 ciudades = {'Sib':4, 'Ora': 2, 'Ara':3, 'Zer':2, 'Tim':2, 'Lug':2, 'Meh':2, 'Dro': 2, 
     'Cra':3, 'Rim':3, 'Pit':3, 'Fag':2, 'Bu':4, 'Giu':1, 'Urz':3, 'Hir':2, 'Efo':1, 'Vas':2, 'Ia':2, 'Nea':1}
+#Lista que almacenara las ciudades solucion
 soluciones = []
+#Diccionario que almacenara los datos de los nodos visitados
 visitados = {'Giu':'Giu','Bu':'Giu','Pit':'Bu','Rim':'Pit'}
 
 def verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final):
@@ -33,20 +37,26 @@ def verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final):
             soluciones.append(nodo_final)
             #get solo retorna el valor de la llave buscando la clave ingresada en los parentesis    
             dato_busqueda = nodo_actual_aux.get(nodo_final)
+            #El loop esta para buscar las conexiones hacia el nodo inicial
             while dato_busqueda != nodo_inicial:
+                #Se agrega el dato de busqueda a la lista soluciones
                 soluciones.append(dato_busqueda)
                 print('Valor de dato_busqueda primero')
                 print(dato_busqueda)
+                #Se redefine dato_busqueda con llave del hijo del paso anterior
                 dato_busqueda = visitados.get(dato_busqueda)
                 print('Valor de dato_busqueda despues')
                 print(dato_busqueda)
+            #Se agrega el que seria el nodo incial presente en dato_busqueda
             soluciones.append(dato_busqueda)
             print(soluciones)
             return 1
     else:
+        #Verificacion cuando solo se ingresa un string y es el mismo donde nos entrogamos
         if nodo_actual_aux == nodo_final:
             print("Estas en el origen")
             return 1
+    #Se devuelve cero si no se encuentra solucion
     return 0
 
 def verificacion_num_hijos(nodo_actual):
