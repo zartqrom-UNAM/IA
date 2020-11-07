@@ -26,11 +26,14 @@ ciudades = {'Sib':4, 'Ora': 2, 'Ara':3, 'Zer':2, 'Tim':2, 'Lug':2, 'Meh':2, 'Dro
 soluciones = []
 #Diccionario que almacenara los datos de los nodos visitados
 visitados = {'Giu':'Giu','Bu':'Giu','Pit':'Bu','Rim':'Pit'}
+#Diccionario de ignorados
+ignorados = {}
 
 def verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final):
     nodo_actual_aux = nodo_actual #{key:value}
     #Obtiene el hijo del nodo actual
     hijo = nodo_actual_aux.values()
+    nieto_llave, nieto_valor = nodo_nieto(hijo)
     #Corrobora el tipo de entrada
     if type(nodo_actual_aux) == dict:
         #Obtiene la llave
@@ -52,7 +55,7 @@ def verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final):
             #Se agrega el que seria el nodo incial presente en dato_busqueda
             soluciones.append(dato_busqueda)
             if verificacion_num_hijos(nodo_actual) == 1:
-
+                hijo
             print(soluciones)
             return 1
     else:
@@ -68,8 +71,8 @@ def verificacion_num_hijos(nodo_actual):
     #Se obtiene el dato para conocer quien es el hijo
     hijo = nodo_hijo(nodo_actual_aux)
     #Se obtiene el nieto para obtener su numero de hijos guardado en el diccionario ciudades
-    nieto = visitados.get(hijo)
-    num_hijos = ciudades.get(nieto)
+    nieto_llave = nodo_nieto(hijo)
+    num_hijos = ciudades.get(nieto_llave)
     if num_hijos <= 2:
         return 1
     return 0
@@ -82,7 +85,7 @@ def nodo_hijo(nodo_actual):
 
 def nodo_nieto(hijo):
     #Ciclo que busca la primera llave y valor del hijo en visitados
-    for clave, valor in versiones.items():
+    for clave, valor in visitados.items():
         if clave == hijo:
             #Finaliza con el ciclo al encontrar la primera coincidencia
             break
