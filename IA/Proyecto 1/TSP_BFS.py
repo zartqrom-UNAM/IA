@@ -29,6 +29,8 @@ visitados = {'Giu':'Giu','Bu':'Giu','Pit':'Bu','Rim':'Pit'}
 
 def verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final):
     nodo_actual_aux = nodo_actual #{key:value}
+    #Obtiene el hijo del nodo actual
+    hijo = nodo_actual_aux.values()
     #Corrobora el tipo de entrada
     if type(nodo_actual_aux) == dict:
         #Obtiene la llave
@@ -49,6 +51,8 @@ def verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final):
                 print(dato_busqueda)
             #Se agrega el que seria el nodo incial presente en dato_busqueda
             soluciones.append(dato_busqueda)
+            if verificacion_num_hijos(nodo_actual) == 1:
+
             print(soluciones)
             return 1
     else:
@@ -70,5 +74,11 @@ def verificacion_num_hijos(nodo_actual):
         return 1
     return 0
 
+def nodo_hijo(nodo_actual):
+    nodo_actual_aux = nodo_actual
+    hijo_aux = list(nodo_actual_aux.values())
+    hijo = hijo_aux[0]
+    return hijo
 
-verificar_nodo_final({'Sib':'Rim'},'Giu','Sib')
+#verificar_nodo_final({'Sib':'Rim'},'Giu','Sib')
+nodo_hijo({'Sib':'Rim'})
