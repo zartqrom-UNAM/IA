@@ -33,7 +33,7 @@ def verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final):
     nodo_actual_aux = nodo_actual #{key:value}
     #Obtiene el hijo del nodo actual
     hijo = nodo_actual_aux.values()
-    nieto_llave, nieto_valor = nodo_nieto(hijo)
+    #nieto_llave, nieto_valor = nodo_nieto(hijo)
     #Corrobora el tipo de entrada
     if type(nodo_actual_aux) == dict:
         #Obtiene la llave
@@ -55,7 +55,11 @@ def verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final):
             #Se agrega el que seria el nodo incial presente en dato_busqueda
             soluciones.append(dato_busqueda)
             if verificacion_num_hijos(nodo_actual) == 1:
-                hijo
+                for clave, valor in visitados.items():
+                    if clave == hijo:
+                        #Finaliza con el ciclo al encontrar la primera coincidencia
+                        break
+                
             print(soluciones)
             return 1
     else:
