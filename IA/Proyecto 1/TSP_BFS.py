@@ -1,18 +1,27 @@
-solucion = []
-def verificar_nodo_final(nodo_actual, nodo_final):
+soluciones = []
+visitados = {'Giu':'Giu','Bu':'Giu','Pit':'Bu','Rim':'Pit'}
+def verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final):
     nodo_actual_aux = nodo_actual #{key:value}
-    print(type(nodo_actual_aux))
+    #Corrobora el tipo de entrada
     if type(nodo_actual_aux) == dict:
+        #Obtiene la llave
         dato_aux = list(nodo_actual_aux.keys())
-        print(dato_aux[0])
         if dato_aux[0] == nodo_final:
-            solucion.append(nodo_final)
-            print(solucion) 
-            #get solo retorna el valor de la llave ingresada
+            soluciones.append(nodo_final)
+            #get solo retorna el valor de la llave buscando la clave ingresada en los parentesis    
             dato_busqueda = nodo_actual_aux.get(nodo_final)
-            print(dato_busqueda)
-            solucion.append(dato_busqueda)
-            print(solucion)
+            while dato_busqueda != nodo_inicial:
+                soluciones.append(dato_busqueda)
+                print('Valor de dato_busqueda primero')
+                print(dato_busqueda)
+                dato_busqueda = visitados.get(dato_busqueda)
+                print('Valor de dato_busqueda despues')
+                print(dato_busqueda)
+            soluciones.append(dato_busqueda)
+            print(soluciones)
+            return 1
+
+
 
     else:
         if nodo_actual_aux == nodo_final:
@@ -20,6 +29,4 @@ def verificar_nodo_final(nodo_actual, nodo_final):
             return 1
     return 0
 
-nodo_actual = {'Bu':'Giu'}
-nodo_final = 'Bu'
-verificar_nodo_final(nodo_actual, nodo_final)
+verificar_nodo_final({'Sib':'Rim'},'Giu','Sib')
