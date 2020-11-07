@@ -66,7 +66,7 @@ def verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final):
 def verificacion_num_hijos(nodo_actual):
     nodo_actual_aux = nodo_actual #{key:value}
     #Se obtiene el dato para conocer quien es el hijo
-    hijo = list(nodo_actual_aux.values())
+    hijo = nodo_hijo(nodo_actual_aux)
     #Se obtiene el nieto para obtener su numero de hijos guardado en el diccionario ciudades
     nieto = visitados.get(hijo)
     num_hijos = ciudades.get(nieto)
@@ -80,5 +80,13 @@ def nodo_hijo(nodo_actual):
     hijo = hijo_aux[0]
     return hijo
 
+def nodo_nieto(hijo):
+    #Ciclo que busca la primera llave y valor del hijo en visitados
+    for clave, valor in versiones.items():
+        if clave == hijo:
+            #Finaliza con el ciclo al encontrar la primera coincidencia
+            break
+    nieto_llave = clave
+    nieto_valor = valor
+    return nieto_llave, nieto_valor
 #verificar_nodo_final({'Sib':'Rim'},'Giu','Sib')
-nodo_hijo({'Sib':'Rim'})
