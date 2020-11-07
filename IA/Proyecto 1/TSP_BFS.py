@@ -27,7 +27,11 @@ def verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final):
     return 0
 
 def verificacion_num_hijos(nodo_actual):
-    nodo_actual_aux = nodo_actual
-    
+    nodo_actual_aux = nodo_actual #{key:value}
+    #Se obtiene el dato para conocer quien es el hijo
+    hijo = list(nodo_actual_aux.values())
+    nieto = visitados.get(hijo)
+
+
 
 verificar_nodo_final({'Sib':'Rim'},'Giu','Sib')
