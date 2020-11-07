@@ -20,13 +20,14 @@ def verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final):
             soluciones.append(dato_busqueda)
             print(soluciones)
             return 1
-
-
-
     else:
         if nodo_actual_aux == nodo_final:
             print("Estas en el origen")
             return 1
     return 0
+
+def verificacion_num_hijos(nodo_actual):
+    nodo_actual_aux = nodo_actual
+    
 
 verificar_nodo_final({'Sib':'Rim'},'Giu','Sib')
