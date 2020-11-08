@@ -39,7 +39,7 @@ ignorados_hijo = ['Fag']
 #Datos iniciales
 nodo_inicial = 'Sib'
 nodo_final = 'Urz'
-"""
+
 #Funcion principal
 def bfs(nodo_inicial, nodo_final):
     visitar_padre.append(nodo_inicial)
@@ -47,7 +47,7 @@ def bfs(nodo_inicial, nodo_final):
     flag_nodo_inicial = 1
     nodo_actual = [visitar_hijo[0], visitar_padre[0]]
     verificar_nodo_final(nodo_actual, nodo_final)
-    agregar_hijos(flag_nodo_inicial, nodo_actual)
+    agregar_hijos(nodo_actual)
 
 #nodo_actual = [hijo (esta en), padre(viene de)]
 def verificar_nodo_final(nodo_actual, nodo_final):
@@ -83,8 +83,8 @@ def verificar_nodo_final(nodo_actual, nodo_final):
             #Obtiene la posicion del dato padre del nodo_actual en la lista visitados_hijo
             posicion = visitados_hijo.index(padre)
             #Se borran los datos de las listas visitados_hijo y visitados_padre
-            visitados_hijo.pop(posicion)
-            visitados_padre.pop(posicion)
+            ignorados_hijo.append(visitados_hijo.pop(posicion))
+            ignorados_padre.append(visitados_padre.pop(posicion))
         visitar_hijo.pop(0)
         visitados_padre.pop(0)
         return 1
@@ -124,29 +124,39 @@ def agregar_visitados(flag_nodo_inicial, nodo_actual):
         print('Visitados: ', visitados_hijo, ':', visitados_padre)
     else:
         print('No entro por ser el nodo inicial')
-"""
+
 def agregar_hijos(nodo_actual):
     hijo = nodo_actual[0]
     print('Hijo: ', hijo)
+    #Se hace uso de un diccionario auxliar para acceder a las siguiente llaves
     dicc_aux = cities.get(hijo)
+    #Por cada llave almacenada en el diccionario auxiliar
     for key in dicc_aux.keys():
+        #Bandera que nos ayudara a verificar existencia en la lista de ignorados
+        #Se coloca aqui para volver a inicializarla cada vez que se encuentre otra llave
         flag_esta_ignorados = 0
+        #Bucle que analiza si encuentra los datos en la listas ignorados
         for i in range(len(ignorados_hijo)):
             if hijo in ignorados_hijo[i]:
                 if key in ignorados_padre[i]:
                     print('Ignorados: ',i,hijo, key)
                     flag_esta_ignorados = 1
+        #Bandera que nos ayudara a verificar existencia en la lista de visitados
+        #Se coloca aqui para volver a inicializarla cada vez que se encuentre otra llave
         flag_esta_visitados = 0
+        #Bucle que analiza si encuentra los datos en la listas visitados
         for j in range(len(visitados_padre)):
             if hijo in visitados_hijo[j]:
                 if key in visitados_padre[j]:
                     flag_esta_visitados = 1
                     print('Visitados: ',i,hijo, key)
+        #Condicional que agregara los datos analizados si no se encuentran en la lista de ignorados o en la lista de visitados
         if flag_esta_ignorados == 0 or flag_esta_visitados == 0:
             visitar_hijo.append(hijo)
             visitar_padre.append(key)
             print('Agregando a visitar')
             print(visitar_hijo, visitar_padre)
+        #Si si se encuentran en alguna lista se omite
         else:
             print('Ya se ha analizado')
             print(visitar_hijo, visitar_padre)
