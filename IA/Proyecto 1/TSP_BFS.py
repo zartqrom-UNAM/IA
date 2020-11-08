@@ -37,7 +37,7 @@ ignorados_hijo = []
 #Datos iniciales
 nodo_inicial = 'Sib'
 nodo_final = 'Urz'
-
+"""
 #Funcion principal
 def bfs(nodo_inicial, nodo_final):
     visitar_padre.append(nodo_inicial)
@@ -45,6 +45,7 @@ def bfs(nodo_inicial, nodo_final):
     flag_nodo_inicial = 1
     nodo_actual = [visitar_hijo[0], visitar_padre[0]]
     verificar_nodo_final(nodo_actual, nodo_final)
+    agregar_hijos(flag_nodo_inicial, nodo_actual)
 
 #nodo_actual = [hijo (esta en), padre(viene de)]
 def verificar_nodo_final(nodo_actual, nodo_final):
@@ -101,18 +102,24 @@ def verificar_num_hijos(nodo_actual):
     if num_hijos <= 2:
         return 1
     return 0
-
-def agregar_hijos(flag_nodo_inicial, nodo_actual):
+"""
+def agregar_visitados(flag_nodo_inicial, nodo_actual):
     if flag_nodo_inicial != 1:
         hijo = nodo_actual[0]
         print('Hijo: ', hijo)
         padre = nodo_actual[1]
         print('Padre: ', padre)
+        flag_esta = 0
         for i in range(len(visitados_padre)):
-            if not hijo in visitados_hijo[i]:
-                if not padre in visitados_padre[i]:
-                    visitados_hijo.append(hijo)
-                    visitados_padre.append(padre)
+            if hijo in visitados_hijo[i]:
+                if padre in visitados_padre[i]:
+                    flag_esta = 1
+        if flag_esta == 0:
+            visitados_padre.append(padre)
+            visitados_hijo.append(hijo)
+        else:
+            print('No se guarda. Ya existe')
         print('Visitados: ', visitados_hijo, ':', visitados_padre)
+    else:
+        print('No entro por ser el nodo inicial')
 #bfs(nodo_inicial, nodo_final)
-verificar_num_hijos(['Urz','Bu'])
