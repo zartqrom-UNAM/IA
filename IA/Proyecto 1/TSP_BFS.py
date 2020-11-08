@@ -49,15 +49,15 @@ def bfs(nodo_inicial, nodo_final):
         nodo_actual = [visitar_hijo[0], visitar_padre[0]]
         if verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final) == 0:
             print('Se verifico el nodo final\n')
-            os.system("pause\n")
+            os.system("pause")
             #Se debe agregar a visitados 
             if num_hijos_visitados(flag_nodo_inicial, nodo_actual) == 0:
-                agregar_visitados(nodo_actual) 
-                print('Agrego visitados\n')
-                os.system("pause\n")
-                agregar_hijos(nodo_actual)
-                print('Se agregaron los hijos a visitar\n')
-                os.system("pause\n")
+                if agregar_visitados(nodo_actual) != 0:
+                    print('Agrego visitados\n')
+                    os.system("pause")
+                    agregar_hijos(nodo_actual)
+                    print('Se agregaron los hijos a visitar\n')
+                os.system("pause")
                 visitar_hijo.pop(0)
                 visitar_padre.pop(0)
         else:
@@ -136,17 +136,19 @@ def agregar_visitados(nodo_actual):
     print('Padre agregar visitados: ', padre)
     flag_esta = 0
     for i in range(len(visitados_padre)):
-        if hijo in visitados_hijo[i]:
-            if padre in visitados_padre[i]:
+        if padre in visitados_hijo[i]:
+            if hijo in visitados_padre[i]:
                 flag_esta = 1
     if flag_esta == 0:
         visitados_padre.append(padre)
         visitados_hijo.append(hijo)
+        print('Visitados: ', visitados_hijo, ':', visitados_padre)
         return 1
     else:
         print('No se guarda. Ya existe')
+        print('Visitados: ', visitados_hijo, ':', visitados_padre)
         return 0
-    print('Visitados: ', visitados_hijo, ':', visitados_padre)
+    
 
 def num_hijos_visitados(flag_nodo_inicial, nodo_actual):
     hijo = nodo_actual[0]
