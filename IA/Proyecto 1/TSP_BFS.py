@@ -83,9 +83,12 @@ def verificar_num_hijos(nodo_actual):
     print('Padre: ', padre)
     #Se obtiene la posicion de donde se encuentra el dato padre en la lista vistados_hijo
     posicion = visitados_hijo.index(padre)
-    nieto = visitados_hijo[posicion]
+    #Se obtiene el nieto del dato padre a través de la posicion del dato hijo en la lista visitados_padre
+    nieto = visitados_padre[posicion]
     print('Nieto: ', nieto)
+    #Se obtiene el numero de hijos a traves del diccionario ciudades
     num_hijos = ciudades.get(nieto)
+    print(num_hijos)
     if num_hijos <= 2:
         return 1
     return 0
