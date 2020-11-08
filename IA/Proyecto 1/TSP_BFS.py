@@ -25,7 +25,7 @@ cities = {
 ciudades = {'Sib':4, 'Ora': 2, 'Ara':3, 'Zer':2, 'Tim':2, 'Lug':2, 'Meh':2, 'Dro': 2, 
     'Cra':3, 'Rim':3, 'Pit':3, 'Fag':2, 'Bu':4, 'Giu':1, 'Urz':3, 'Hir':2, 'Efo':1, 'Vas':2, 'Ia':2, 'Nea':1}
 #Lista que almacenara las ciudades solucion
-soluciones = []
+soluciones = ['Sib','Fag','Bu', 'Urz']
 #listas que almacenara los datos de los nodos visitados
 visitados_padre = ['Sib','Sib','Sib','Fag']
 visitados_hijo = ['Sib','Fag','Rim','Bu']
@@ -39,15 +39,19 @@ ignorados_hijo = ['Fag']
 #Datos iniciales
 nodo_inicial = 'Sib'
 nodo_final = 'Urz'
-
+"""
 #Funcion principal
 def bfs(nodo_inicial, nodo_final):
     visitar_padre.append(nodo_inicial)
     visitar_hijo.append(nodo_inicial)
     flag_nodo_inicial = 1
-    nodo_actual = [visitar_hijo[0], visitar_padre[0]]
-    verificar_nodo_final(nodo_actual, nodo_final)
-    agregar_hijos(nodo_actual)
+    if visitar_hijo and visitar_padre:
+        nodo_actual = [visitar_hijo[0], visitar_padre[0]]
+        verificar_nodo_final(nodo_actual, nodo_final)
+        if agregar_visitados(flag_nodo_inicial,nodo_actual) == 1:
+            agregar_hijos(nodo_actual)
+    else:
+        #Buscar solucion
 
 #nodo_actual = [hijo (esta en), padre(viene de)]
 def verificar_nodo_final(nodo_actual, nodo_final):
@@ -119,11 +123,14 @@ def agregar_visitados(flag_nodo_inicial, nodo_actual):
         if flag_esta == 0:
             visitados_padre.append(padre)
             visitados_hijo.append(hijo)
+            return 1
         else:
             print('No se guarda. Ya existe')
+            return 0
         print('Visitados: ', visitados_hijo, ':', visitados_padre)
     else:
         print('No entro por ser el nodo inicial')
+        return 0
 
 def agregar_hijos(nodo_actual):
     hijo = nodo_actual[0]
@@ -160,7 +167,19 @@ def agregar_hijos(nodo_actual):
         else:
             print('Ya se ha analizado')
             print(visitar_hijo, visitar_padre)
+"""
+#['Sib','Fag','Bu', 'Urz']
+def calcular_solucion():
+    suma = 0
+    for i in range(len(soluciones)-1):
+        padre = soluciones[i]
+        print('Padre:',padre)
+        hijo = soluciones[i+1]
+        print('Hijo:',hijo)
+        dicc_aux = cities.get(padre)
+        suma += int(dicc_aux.get(hijo))
+    print(suma)
+    return suma
 
-#bfs(nodo_inicial, nodo_final)
-
-agregar_hijos(['Fag','Bu'])
+#Agregar un contador para analizar la lista de lugares
+calcular_solucion()
