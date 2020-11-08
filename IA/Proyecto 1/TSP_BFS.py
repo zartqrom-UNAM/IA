@@ -25,8 +25,8 @@ ciudades = {'Sib':4, 'Ora': 2, 'Ara':3, 'Zer':2, 'Tim':2, 'Lug':2, 'Meh':2, 'Dro
 #Lista que almacenara las ciudades solucion
 soluciones = []
 #listas que almacenara los datos de los nodos visitados
-visitados_padre = []
-visitados_hijo = []
+visitados_padre = ['Sib','Sib','Sib','Fag']
+visitados_hijo = ['Sib','Fag','Rim','Bu']
 #listas que almacenara los datos de los nodos visitar
 visitar_padre = []
 visitar_hijo = []
@@ -36,21 +36,36 @@ ignorados_hijo = []
 
 #Datos iniciales
 nodo_inicial = 'Sib'
-nodo_final = 'Sib'
-
+nodo_final = 'Urz'
+"""
 #Funcion principal
 def bfs(nodo_inicial, nodo_final):
     visitar_padre.append(nodo_inicial)
     visitar_hijo.append(nodo_inicial)
     nodo_actual = [visitar_hijo[0], visitar_padre[0]]
-    verificar_nodo_final(nodo_actual)
-
+    verificar_nodo_final(nodo_actual, nodo_final)
+"""
 #nodo_actual = [hijo (esta en), padre(viene de)]
-def verificar_nodo_final(nodo_actual):
+def verificar_nodo_final(nodo_actual, nodo_final):
     hijo = nodo_actual[0]
+    print('Hijo: ', hijo)
     padre = nodo_actual[1]
-    if padre and hijo == nodo_final:
+    print('Padre: ', padre)
+    if padre == hijo == nodo_final:
         print('Estas en el mismo lugar')
         return 1
-
-bfs(nodo_inicial, nodo_final)
+    elif hijo == nodo_final:
+        soluciones.append(nodo_final)
+        print('Solucion iniciada: ',soluciones)
+        posicion = visitados_hijo.index(padre)
+        print('Dato padre: ', visitados_padre[posicion])
+        while visitados_hijo[posicion] != nodo_inicial:
+            soluciones.append(visitados_hijo[posicion])
+            dato_busqueda = visitados_padre[posicion]
+            print('Dato de busqueda: ', dato_busqueda)
+            posicion = visitados_hijo.index(dato_busqueda)
+        soluciones.append(visitados_padre[posicion])
+        print(soluciones)
+    return 0
+#bfs(nodo_inicial, nodo_final)
+verificar_nodo_final(['Urz','Bu'], nodo_final)
