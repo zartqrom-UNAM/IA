@@ -166,19 +166,6 @@ def agregar_visitados(nodo_actual):
         return 0
     
 
-def num_hijos_visitados(flag_nodo_inicial, nodo_actual):
-    hijo = nodo_actual[0]
-    if flag_nodo_inicial != 1:
-        num_hijos = ciudades.get(hijo)
-        print('Num hijos en num de hijos para visitados', num_hijos)
-        if num_hijos <= 1:
-            return 1
-        else:
-            return -1
-    else:
-        print('No entro por ser el nodo inicial')
-        return 0
-
 def agregar_hijos(nodo_actual):
     hijo = nodo_actual[0]
     print('Hijo AGREGAR HIJOS: ', hijo)
