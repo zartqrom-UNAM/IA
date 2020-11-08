@@ -44,7 +44,7 @@ def bfs(nodo_inicial, nodo_final):
     visitar_hijo.append(nodo_inicial)
     nodo_actual = [visitar_hijo[0], visitar_padre[0]]
     verificar_nodo_final(nodo_actual, nodo_final)
-"""
+
 #nodo_actual = [hijo (esta en), padre(viene de)]
 def verificar_nodo_final(nodo_actual, nodo_final):
     hijo = nodo_actual[0]
@@ -77,6 +77,18 @@ def verificar_nodo_final(nodo_actual, nodo_final):
         print(soluciones)
         return 1
     return 0
+"""
+def verificar_num_hijos(nodo_actual):
+    padre = nodo_actual[1]
+    print('Padre: ', padre)
+    #Se obtiene la posicion de donde se encuentra el dato padre en la lista vistados_hijo
+    posicion = visitados_hijo.index(padre)
+    nieto = visitados_hijo[posicion]
+    print('Nieto: ', nieto)
+    num_hijos = ciudades.get(nieto)
+    if num_hijos <= 2:
+        return 1
+    return 0
 
 #bfs(nodo_inicial, nodo_final)
-verificar_nodo_final(['Urz','Bu'], nodo_final)
+verificar_num_hijos(['Urz','Bu'])
