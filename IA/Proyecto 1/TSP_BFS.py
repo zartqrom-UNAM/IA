@@ -62,7 +62,11 @@ def bfs(nodo_inicial, nodo_final):
                 visitar_padre.pop(0)
         else:
             print('Calculando solucion\n')
-            calcular_solucion()
+            sol = calcular_solucion()
+            f = open("solucion.txt","a")
+            f.write(soluciones)
+            f.write(sol)
+            f.close()
         flag_nodo_inicial = 0
 
 #nodo_actual = [hijo (esta en), padre(viene de)]
@@ -215,3 +219,11 @@ for i in range(len(lugares)-1):
         fin = lugares[i+1]
         print('Quiero llegar a: ',fin)
         bfs(inicio, fin)
+        #Se borran todas las listas al conluir con el primer par de nodos visitados
+        soluciones.clear()
+        visitados_padre.clear()
+        visitados_hijo.clear()
+        visitar_hijo.clear()
+        visitar_padre.clear()
+        ignorados_hijo.clear()
+        ignorados_padre.clear()
