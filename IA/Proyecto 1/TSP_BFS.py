@@ -37,7 +37,6 @@ ignorados_hijo = []
 #Datos iniciales
 nodo_inicial = 'Sib'
 nodo_final = 'Urz'
-"""
 #Funcion principal
 def bfs(nodo_inicial, nodo_final):
     visitar_padre.append(nodo_inicial)
@@ -60,7 +59,7 @@ def verificar_nodo_final(nodo_actual, nodo_final):
         #Se comienza a agregar a la lista soluciones el nodo final
         soluciones.append(nodo_final)
         print('Solucion iniciada: ',soluciones)
-        #Se obtiene la posicion de donde se encuentra el dato padre en la lista vistados_hijo
+        #Se obtiene la posicion de donde se encuentra el dato padre en la lista visitados_hijo
         posicion = visitados_hijo.index(padre)
         print('Dato padre: ', visitados_padre[posicion])
         #Bucle para buscar las conexiones hacia el nodo inicial
@@ -75,9 +74,17 @@ def verificar_nodo_final(nodo_actual, nodo_final):
         #Se agrega el ultimo dato que no se agrego debido a que termina el bucle
         soluciones.append(visitados_padre[posicion])
         print(soluciones)
+        if verificar_num_hijos(nodo_actual) == 1:
+            #Obtiene la posicion del dato padre del nodo_actual en la lista visitados_hijo
+            posicion = visitados_hijo.index(padre)
+            #Se borran los datos de las listas visitados_hijo y visitados_padre
+            visitados_hijo.pop(posicion)
+            visitados_padre.pop(posicion)
+        visitar_hijo.pop(0)
+        visitados_padre.pop(0)
         return 1
     return 0
-"""
+
 def verificar_num_hijos(nodo_actual):
     padre = nodo_actual[1]
     print('Padre: ', padre)
