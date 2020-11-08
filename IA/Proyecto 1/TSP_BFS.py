@@ -25,20 +25,20 @@ cities = {
 ciudades = {'Sib':4, 'Ora': 2, 'Ara':3, 'Zer':2, 'Tim':2, 'Lug':2, 'Meh':2, 'Dro': 2, 
     'Cra':3, 'Rim':3, 'Pit':3, 'Fag':2, 'Bu':4, 'Giu':1, 'Urz':3, 'Hir':2, 'Efo':1, 'Vas':2, 'Ia':2, 'Nea':1}
 #Lista que almacenara las ciudades solucion
-soluciones = ['Sib','Fag','Bu', 'Urz']
+soluciones = []
 #listas que almacenara los datos de los nodos visitados
-visitados_padre = ['Sib','Sib','Sib','Fag']
-visitados_hijo = ['Sib','Fag','Rim','Bu']
+visitados_padre = []
+visitados_hijo = []
 #listas que almacenara los datos de los nodos visitar
 visitar_padre = []
 visitar_hijo = []
 #Lista de ignorados de ignorados
-ignorados_padre = ['Sib']
-ignorados_hijo = ['Fag']
+ignorados_padre = []
+ignorados_hijo = []
 
 #Datos iniciales
-nodo_inicial = 'Sib'
-nodo_final = 'Urz'
+#nodo_inicial = 'Sib'
+#nodo_final = 'Urz'
 #Funcion principal
 def bfs(nodo_inicial, nodo_final):
     visitar_padre.append(nodo_inicial)
@@ -46,15 +46,16 @@ def bfs(nodo_inicial, nodo_final):
     flag_nodo_inicial = 1
     while visitar_hijo and visitar_padre:
         nodo_actual = [visitar_hijo[0], visitar_padre[0]]
-        if verificar_nodo_final(nodo_actual, nodo_final) == 0:
+        if verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final) == 0:
             if agregar_visitados(flag_nodo_inicial,nodo_actual) == 1:
                 agregar_hijos(nodo_actual)
         else:
+            print('Calculando solucion')
             calcular_solucion()
         flag_nodo_inicial = 0
 
 #nodo_actual = [hijo (esta en), padre(viene de)]
-def verificar_nodo_final(nodo_actual, nodo_final):
+def verificar_nodo_final(nodo_actual, nodo_inicial,nodo_final):
     hijo = nodo_actual[0]
     print('Hijo: ', hijo)
     padre = nodo_actual[1]
@@ -62,6 +63,8 @@ def verificar_nodo_final(nodo_actual, nodo_final):
     #Se verifica si el nodo final es el mismo que el nodo actual
     if padre == hijo == nodo_final:
         print('Estas en el mismo lugar')
+        visitar_hijo.pop(0)
+        visitados_padre.pop(0)
         return 1
     #Si no se esta en el mismo nodo se verifica si se llego al nodo final
     elif hijo == nodo_final:
@@ -92,7 +95,8 @@ def verificar_nodo_final(nodo_actual, nodo_final):
         visitar_hijo.pop(0)
         visitados_padre.pop(0)
         return 1
-    return 0
+    else:
+        return 0
 
 def verificar_num_hijos(nodo_actual):
     padre = nodo_actual[1]
@@ -181,3 +185,10 @@ def calcular_solucion():
     return suma
 
 #Agregar un contador para analizar la lista de lugares
+lugares = ['Sib','Sib']
+for i in range(len(lugares)-1):
+        inicio = lugares[i]
+        print('Estoy en: ',inicio)
+        fin = lugares[i+1]
+        print('Quiero llegar a: ',fin)
+        bfs(inicio, fin)
