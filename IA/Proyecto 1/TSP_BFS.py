@@ -80,8 +80,8 @@ def bfs(nodo_inicial, nodo_final):
             sol = str(calcular_solucion())
             f = open("solucion.txt","a")
             for cadena in soluciones:
-                f.write(cadena)
-            f.write(sol)
+                f.write(cadena+' ')
+            f.write(sol+'\n')
             f.close()
         flag_nodo_inicial = 0
 
