@@ -48,20 +48,20 @@ def bfs(nodo_inicial, nodo_final):
     while visitar_hijo and visitar_padre:
         nodo_actual = [visitar_hijo[0], visitar_padre[0]]
         if verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final) == 0:
-            print('Se verifico el nodo final')
+            print('Se verifico el nodo final\n')
             os.system("pause\n")
             #Se debe agregar a visitados 
             if num_hijos_visitados(flag_nodo_inicial, nodo_actual) == 0:
                 agregar_visitados(nodo_actual) 
-                print('Agrego visitados')
+                print('Agrego visitados\n')
                 os.system("pause\n")
                 agregar_hijos(nodo_actual)
-                print('Se agregaron los hijos a visitar')
+                print('Se agregaron los hijos a visitar\n')
                 os.system("pause\n")
                 visitar_hijo.pop(0)
                 visitar_padre.pop(0)
         else:
-            print('Calculando solucion')
+            print('Calculando solucion\n')
             calcular_solucion()
         flag_nodo_inicial = 0
 
@@ -159,7 +159,7 @@ def num_hijos_visitados(flag_nodo_inicial, nodo_actual):
 
 def agregar_hijos(nodo_actual):
     hijo = nodo_actual[0]
-    print('Hijo agregar hijos: ', hijo)
+    print('Hijo AGREGAR HIJOS: ', hijo)
     #Se hace uso de un diccionario auxliar para acceder a las siguiente llaves
     dicc_aux = cities.get(hijo)
     #Por cada llave almacenada en el diccionario auxiliar
@@ -184,8 +184,8 @@ def agregar_hijos(nodo_actual):
                     print('Visitados: ',j,hijo, key)
         #Condicional que agregara los datos analizados si no se encuentran en la lista de ignorados o en la lista de visitados
         if flag_esta_ignorados == 0 or flag_esta_visitados == 0:
-            visitar_hijo.append(hijo)
-            visitar_padre.append(key)
+            visitar_hijo.append(key)
+            visitar_padre.append(hijo)
             print('Agregando a visitar')
             print('Hijos: ',visitar_hijo)
             print('Padres: ',visitar_padre)
