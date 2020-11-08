@@ -187,11 +187,13 @@ def agregar_hijos(nodo_actual):
             visitar_hijo.append(hijo)
             visitar_padre.append(key)
             print('Agregando a visitar')
-            print(visitar_hijo, visitar_padre)
+            print('Hijos: ',visitar_hijo)
+            print('Padres: ',visitar_padre)
         #Si si se encuentran en alguna lista se omite
         else:
             print('Ya se ha analizado')
-            print(visitar_hijo, visitar_padre)
+            print('Hijos: ',visitar_hijo)
+            print('Padres: ',visitar_padre)
 #['Sib','Fag','Bu', 'Urz']
 def calcular_solucion():
     suma = 0
