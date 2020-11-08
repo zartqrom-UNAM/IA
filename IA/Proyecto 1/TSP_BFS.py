@@ -39,19 +39,19 @@ ignorados_hijo = ['Fag']
 #Datos iniciales
 nodo_inicial = 'Sib'
 nodo_final = 'Urz'
-"""
 #Funcion principal
 def bfs(nodo_inicial, nodo_final):
     visitar_padre.append(nodo_inicial)
     visitar_hijo.append(nodo_inicial)
     flag_nodo_inicial = 1
-    if visitar_hijo and visitar_padre:
+    while visitar_hijo and visitar_padre:
         nodo_actual = [visitar_hijo[0], visitar_padre[0]]
-        verificar_nodo_final(nodo_actual, nodo_final)
-        if agregar_visitados(flag_nodo_inicial,nodo_actual) == 1:
-            agregar_hijos(nodo_actual)
-    else:
-        #Buscar solucion
+        if verificar_nodo_final(nodo_actual, nodo_final) == 0:
+            if agregar_visitados(flag_nodo_inicial,nodo_actual) == 1:
+                agregar_hijos(nodo_actual)
+        else:
+            calcular_solucion()
+        flag_nodo_inicial = 0
 
 #nodo_actual = [hijo (esta en), padre(viene de)]
 def verificar_nodo_final(nodo_actual, nodo_final):
@@ -167,7 +167,6 @@ def agregar_hijos(nodo_actual):
         else:
             print('Ya se ha analizado')
             print(visitar_hijo, visitar_padre)
-"""
 #['Sib','Fag','Bu', 'Urz']
 def calcular_solucion():
     suma = 0
@@ -182,4 +181,3 @@ def calcular_solucion():
     return suma
 
 #Agregar un contador para analizar la lista de lugares
-calcular_solucion()
