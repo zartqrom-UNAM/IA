@@ -51,21 +51,32 @@ def verificar_nodo_final(nodo_actual, nodo_final):
     print('Hijo: ', hijo)
     padre = nodo_actual[1]
     print('Padre: ', padre)
+    #Se verifica si el nodo final es el mismo que el nodo actual
     if padre == hijo == nodo_final:
         print('Estas en el mismo lugar')
         return 1
+    #Si no se esta en el mismo nodo se verifica si se llego al nodo final
     elif hijo == nodo_final:
+        #Se comienza a agregar a la lista soluciones el nodo final
         soluciones.append(nodo_final)
         print('Solucion iniciada: ',soluciones)
+        #Se obtiene la posicion de donde se encuentra el dato padre en la lista vistados_hijo
         posicion = visitados_hijo.index(padre)
         print('Dato padre: ', visitados_padre[posicion])
+        #Bucle para buscar las conexiones hacia el nodo inicial
         while visitados_hijo[posicion] != nodo_inicial:
+            #Se agrega a la lista soluciones la posicion del nodo hijo
             soluciones.append(visitados_hijo[posicion])
+            #Se obtiene el dato padre que esta en la misma posicion pero en la otra lista
             dato_busqueda = visitados_padre[posicion]
             print('Dato de busqueda: ', dato_busqueda)
+            #Se recalcula la poscion con el dato_busqueda
             posicion = visitados_hijo.index(dato_busqueda)
+        #Se agrega el ultimo dato que no se agrego debido a que termina el bucle
         soluciones.append(visitados_padre[posicion])
         print(soluciones)
+        return 1
     return 0
+
 #bfs(nodo_inicial, nodo_final)
 verificar_nodo_final(['Urz','Bu'], nodo_final)
