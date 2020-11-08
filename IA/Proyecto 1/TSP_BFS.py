@@ -33,8 +33,8 @@ visitados_hijo = ['Sib','Fag','Rim','Bu']
 visitar_padre = []
 visitar_hijo = []
 #Lista de ignorados de ignorados
-ignorados_padre = []
-ignorados_hijo = []
+ignorados_padre = ['Sib']
+ignorados_hijo = ['Fag']
 
 #Datos iniciales
 nodo_inicial = 'Sib'
@@ -128,6 +128,28 @@ def agregar_visitados(flag_nodo_inicial, nodo_actual):
 def agregar_hijos(nodo_actual):
     hijo = nodo_actual[0]
     print('Hijo: ', hijo)
+    dicc_aux = cities.get(hijo)
+    for key in dicc_aux.keys():
+        flag_esta_ignorados = 0
+        for i in range(len(ignorados_hijo)):
+            if hijo in ignorados_hijo[i]:
+                if key in ignorados_padre[i]:
+                    print('Ignorados: ',i,hijo, key)
+                    flag_esta_ignorados = 1
+        flag_esta_visitados = 0
+        for j in range(len(visitados_padre)):
+            if hijo in visitados_hijo[j]:
+                if key in visitados_padre[j]:
+                    flag_esta_visitados = 1
+                    print('Visitados: ',i,hijo, key)
+        if flag_esta_ignorados == 0 or flag_esta_visitados == 0:
+            visitar_hijo.append(hijo)
+            visitar_padre.append(key)
+            print('Agregando a visitar')
+            print(visitar_hijo, visitar_padre)
+        else:
+            print('Ya se ha analizado')
+            print(visitar_hijo, visitar_padre)
 
 #bfs(nodo_inicial, nodo_final)
 
