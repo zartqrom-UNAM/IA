@@ -49,7 +49,8 @@ def bfs(nodo_inicial, nodo_final):
         nodo_actual = [visitar_hijo[0], visitar_padre[0]]
         if verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final) == 0:
             os.system("pause")
-            if agregar_visitados(flag_nodo_inicial,nodo_actual) == 1:
+            if num_hijos_visitados(flag_nodo_inicial, nodo_actual) == 0 and flag_nodo_inicial == 0:
+                agregar_visitados(nodo_actual) 
                 os.system("pause")
                 agregar_hijos(nodo_actual)
                 os.system("pause")
@@ -61,9 +62,9 @@ def bfs(nodo_inicial, nodo_final):
 #nodo_actual = [hijo (esta en), padre(viene de)]
 def verificar_nodo_final(nodo_actual, nodo_inicial,nodo_final):
     hijo = nodo_actual[0]
-    print('Hijo: ', hijo)
+    print('Hijo verificador nodo final: ', hijo)
     padre = nodo_actual[1]
-    print('Padre: ', padre)
+    print('Padre verificador nodo final: ', padre)
     #Se verifica si el nodo final es el mismo que el nodo actual
     if padre == hijo == nodo_final:
         print('Estas en el mismo lugar')
@@ -104,45 +105,55 @@ def verificar_nodo_final(nodo_actual, nodo_inicial,nodo_final):
 
 def verificar_num_hijos(nodo_actual):
     padre = nodo_actual[1]
-    print('Padre: ', padre)
+    print('Padre verificador num de hijos: ', padre)
     #Se obtiene la posicion de donde se encuentra el dato padre en la lista vistados_hijo
     posicion = visitados_hijo.index(padre)
     #Se obtiene el nieto del dato padre a través de la posicion del dato hijo en la lista visitados_padre
     nieto = visitados_padre[posicion]
-    print('Nieto: ', nieto)
+    print('Nieto verificador num de hijos: ', nieto)
     #Se obtiene el numero de hijos a traves del diccionario ciudades
     num_hijos = ciudades.get(nieto)
     print(num_hijos)
     if num_hijos <= 2:
         return 1
-    return 0
+    else:
+        return 0
 
-def agregar_visitados(flag_nodo_inicial, nodo_actual):
+def agregar_visitados(nodo_actual):
+    hijo = nodo_actual[0]
+    print('Hijo agregar visitados: ', hijo)
+    padre = nodo_actual[1]
+    print('Padre agregar visitados: ', padre)
+    flag_esta = 0
+    for i in range(len(visitados_padre)):
+        if hijo in visitados_hijo[i]:
+            if padre in visitados_padre[i]:
+                flag_esta = 1
+    if flag_esta == 0:
+        visitados_padre.append(padre)
+        visitados_hijo.append(hijo)
+        return 1
+    else:
+        print('No se guarda. Ya existe')
+        return 0
+    print('Visitados: ', visitados_hijo, ':', visitados_padre)
+
+def num_hijos_visitados(flag_nodo_inicial, nodo_actual):
+    hijo = nodo_actual[0]
     if flag_nodo_inicial != 1:
-        hijo = nodo_actual[0]
-        print('Hijo: ', hijo)
-        padre = nodo_actual[1]
-        print('Padre: ', padre)
-        flag_esta = 0
-        for i in range(len(visitados_padre)):
-            if hijo in visitados_hijo[i]:
-                if padre in visitados_padre[i]:
-                    flag_esta = 1
-        if flag_esta == 0:
-            visitados_padre.append(padre)
-            visitados_hijo.append(hijo)
+        num_hijos = ciudades.get(hijo)
+        print('Num hijos en num de hijos para visitados', num_hijos)
+        if num_hijos <= 1:
             return 1
         else:
-            print('No se guarda. Ya existe')
             return 0
-        print('Visitados: ', visitados_hijo, ':', visitados_padre)
     else:
         print('No entro por ser el nodo inicial')
         return 0
 
 def agregar_hijos(nodo_actual):
     hijo = nodo_actual[0]
-    print('Hijo: ', hijo)
+    print('Hijo agregar hijos: ', hijo)
     #Se hace uso de un diccionario auxliar para acceder a las siguiente llaves
     dicc_aux = cities.get(hijo)
     #Por cada llave almacenada en el diccionario auxiliar
