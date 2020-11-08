@@ -1,3 +1,4 @@
+import os
 #Diccionarios de cada ciudad con sus hijos y respectivos costos
 cities = {
     'Sib' : {'Fag':99, 'Rim':80, 'Ara':140, 'Ora':151},
@@ -47,8 +48,11 @@ def bfs(nodo_inicial, nodo_final):
     while visitar_hijo and visitar_padre:
         nodo_actual = [visitar_hijo[0], visitar_padre[0]]
         if verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final) == 0:
+            os.system("pause")
             if agregar_visitados(flag_nodo_inicial,nodo_actual) == 1:
+                os.system("pause")
                 agregar_hijos(nodo_actual)
+                os.system("pause")
         else:
             print('Calculando solucion')
             calcular_solucion()
@@ -185,7 +189,7 @@ def calcular_solucion():
     return suma
 
 #Agregar un contador para analizar la lista de lugares
-lugares = ['Sib','Sib']
+lugares = ['Sib','Urz']
 for i in range(len(lugares)-1):
         inicio = lugares[i]
         print('Estoy en: ',inicio)
