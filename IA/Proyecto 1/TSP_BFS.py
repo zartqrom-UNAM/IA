@@ -19,6 +19,8 @@ Efo = {'Hir':86}
 Vas = {'Urz':142, 'Ia':92}
 Ia = {'Vas':92, 'Nea':87}
 Nea = {'Ia':87}
+#Lista que almacena los diccionarios de cada ciudad
+cities = [Sib, Ora, Zer, Ara, Tim, Lug, Meh, Dro, Cra, Rim, Pit, Fag, Bu, Giu, Urz, Hir, Efo, Vas, Ia, Nea]
 #Diccionario que almacena las ciudades y sus correspondientes numeros de hijos
 ciudades = {'Sib':4, 'Ora': 2, 'Ara':3, 'Zer':2, 'Tim':2, 'Lug':2, 'Meh':2, 'Dro': 2, 
     'Cra':3, 'Rim':3, 'Pit':3, 'Fag':2, 'Bu':4, 'Giu':1, 'Urz':3, 'Hir':2, 'Efo':1, 'Vas':2, 'Ia':2, 'Nea':1}
@@ -102,7 +104,7 @@ def verificar_num_hijos(nodo_actual):
     if num_hijos <= 2:
         return 1
     return 0
-"""
+
 def agregar_visitados(flag_nodo_inicial, nodo_actual):
     if flag_nodo_inicial != 1:
         hijo = nodo_actual[0]
@@ -122,4 +124,9 @@ def agregar_visitados(flag_nodo_inicial, nodo_actual):
         print('Visitados: ', visitados_hijo, ':', visitados_padre)
     else:
         print('No entro por ser el nodo inicial')
+"""
+def agregar_hijos(nodo_actual):
+    hijo = nodo_actual[0]
+    print('Hijo: ', hijo)
+    for key in 
 #bfs(nodo_inicial, nodo_final)
