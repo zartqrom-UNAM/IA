@@ -49,22 +49,38 @@ def bfs(nodo_inicial, nodo_final):
         nodo_actual = [visitar_hijo[0], visitar_padre[0]]
         if verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final) == 0:
             print('Se verifico el nodo final\n')
-            os.system("pause")
+            #os.system("pause")
             #Se debe agregar a visitados 
-            if num_hijos_visitados(flag_nodo_inicial, nodo_actual) == 0:
+            hijo = nodo_actual[0]
+            num_hijos = ciudades.get(hijo)
+            print('Num hijos en num de hijos para visitados', num_hijos)
+            if num_hijos <= 1 and flag_nodo_inicial == 1:
                 if agregar_visitados(nodo_actual) != 0:
                     print('Agrego visitados\n')
-                    os.system("pause")
+                    #os.system("pause")
                     agregar_hijos(nodo_actual)
                     print('Se agregaron los hijos a visitar\n')
-                os.system("pause")
+                #os.system("pause")
+                visitar_hijo.pop(0)
+                visitar_padre.pop(0)
+            elif num_hijos > 1:
+                if agregar_visitados(nodo_actual) != 0:
+                    print('Agrego visitados\n')
+                    #os.system("pause")
+                    agregar_hijos(nodo_actual)
+                    print('Se agregaron los hijos a visitar\n')
+                #os.system("pause")
+                visitar_hijo.pop(0)
+                visitar_padre.pop(0)
+            else:
                 visitar_hijo.pop(0)
                 visitar_padre.pop(0)
         else:
             print('Calculando solucion\n')
-            sol = calcular_solucion()
+            sol = str(calcular_solucion())
             f = open("solucion.txt","a")
-            f.write(soluciones)
+            for cadena in soluciones:
+                f.write(cadena)
             f.write(sol)
             f.close()
         flag_nodo_inicial = 0
@@ -158,7 +174,7 @@ def num_hijos_visitados(flag_nodo_inicial, nodo_actual):
         if num_hijos <= 1:
             return 1
         else:
-            return 0
+            return -1
     else:
         print('No entro por ser el nodo inicial')
         return 0
