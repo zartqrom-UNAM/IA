@@ -64,7 +64,7 @@ def verificar_nodo_final(nodo_actual, nodo_inicial,nodo_final):
     if padre == hijo == nodo_final:
         print('Estas en el mismo lugar')
         visitar_hijo.pop(0)
-        visitados_padre.pop(0)
+        visitar_padre.pop(0)
         return 1
     #Si no se esta en el mismo nodo se verifica si se llego al nodo final
     elif hijo == nodo_final:
@@ -93,7 +93,7 @@ def verificar_nodo_final(nodo_actual, nodo_inicial,nodo_final):
             ignorados_hijo.append(visitados_hijo.pop(posicion))
             ignorados_padre.append(visitados_padre.pop(posicion))
         visitar_hijo.pop(0)
-        visitados_padre.pop(0)
+        visitar_padre.pop(0)
         return 1
     else:
         return 0
