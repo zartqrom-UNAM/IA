@@ -48,12 +48,18 @@ def bfs(nodo_inicial, nodo_final):
     while visitar_hijo and visitar_padre:
         nodo_actual = [visitar_hijo[0], visitar_padre[0]]
         if verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final) == 0:
-            os.system("pause")
-            if num_hijos_visitados(flag_nodo_inicial, nodo_actual) == 0 and flag_nodo_inicial == 0:
+            print('Se verifico el nodo final')
+            os.system("pause\n")
+            #Se debe agregar a visitados 
+            if num_hijos_visitados(flag_nodo_inicial, nodo_actual) == 0:
                 agregar_visitados(nodo_actual) 
-                os.system("pause")
+                print('Agrego visitados')
+                os.system("pause\n")
                 agregar_hijos(nodo_actual)
-                os.system("pause")
+                print('Se agregaron los hijos a visitar')
+                os.system("pause\n")
+                visitar_hijo.pop(0)
+                visitar_padre.pop(0)
         else:
             print('Calculando solucion')
             calcular_solucion()
@@ -175,7 +181,7 @@ def agregar_hijos(nodo_actual):
             if hijo in visitados_hijo[j]:
                 if key in visitados_padre[j]:
                     flag_esta_visitados = 1
-                    print('Visitados: ',i,hijo, key)
+                    print('Visitados: ',j,hijo, key)
         #Condicional que agregara los datos analizados si no se encuentran en la lista de ignorados o en la lista de visitados
         if flag_esta_ignorados == 0 or flag_esta_visitados == 0:
             visitar_hijo.append(hijo)
