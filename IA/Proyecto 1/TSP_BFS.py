@@ -36,7 +36,6 @@ visitar_hijo = []
 #Lista de ignorados de ignorados
 ignorados_padre = []
 ignorados_hijo = []
-
 #Datos iniciales
 #nodo_inicial = 'Sib'
 #nodo_final = 'Urz'
@@ -46,6 +45,10 @@ def bfs(nodo_inicial, nodo_final):
     visitar_hijo.append(nodo_inicial)
     flag_nodo_inicial = 1
     while visitar_hijo and visitar_padre:
+        print('Hijos LISTA VISITAR: ', visitar_hijo)
+        print('Padre LISTA VISITAR: ', visitar_padre)
+        print('Hijos LISTA IGNORADOS', ignorados_hijo)
+        print('Padre LISTA IGNORADOS', ignorados_padre)
         nodo_actual = [visitar_hijo[0], visitar_padre[0]]
         if verificar_nodo_final(nodo_actual, nodo_inicial, nodo_final) == 0:
             print('Se verifico el nodo final\n')
@@ -53,7 +56,7 @@ def bfs(nodo_inicial, nodo_final):
             #Se debe agregar a visitados 
             hijo = nodo_actual[0]
             num_hijos = ciudades.get(hijo)
-            print('Num hijos en num de hijos para visitados', num_hijos)
+            print('Num hijos en num de hijos para visitados\n', num_hijos)
             if num_hijos <= 1 and flag_nodo_inicial == 1:
                 if agregar_visitados(nodo_actual) != 0:
                     print('Agrego visitados\n')
@@ -87,9 +90,9 @@ def bfs(nodo_inicial, nodo_final):
 
 #nodo_actual = [hijo (esta en), padre(viene de)]
 def verificar_nodo_final(nodo_actual, nodo_inicial,nodo_final):
-    hijo = nodo_actual[0]
+    hijo = nodo_actual[0]#urz
     print('Hijo verificador nodo final: ', hijo)
-    padre = nodo_actual[1]
+    padre = nodo_actual[1]#Buc
     print('Padre verificador nodo final: ', padre)
     #Se verifica si el nodo final es el mismo que el nodo actual
     if padre == hijo == nodo_final:
@@ -99,6 +102,7 @@ def verificar_nodo_final(nodo_actual, nodo_inicial,nodo_final):
         return 1
     #Si no se esta en el mismo nodo se verifica si se llego al nodo final
     elif hijo == nodo_final:
+        soluciones.clear()
         #Se comienza a agregar a la lista soluciones el nodo final
         soluciones.append(nodo_final)
         print('Solucion iniciada: ',soluciones)
@@ -121,8 +125,12 @@ def verificar_nodo_final(nodo_actual, nodo_inicial,nodo_final):
             #Obtiene la posicion del dato padre del nodo_actual en la lista visitados_hijo
             posicion = visitados_hijo.index(padre)
             #Se borran los datos de las listas visitados_hijo y visitados_padre
-            ignorados_hijo.append(visitados_hijo.pop(posicion))
-            ignorados_padre.append(visitados_padre.pop(posicion))
+            print('***SE IGNORA hijo: ', visitados_hijo[posicion])
+            ignorados_hijo.append(visitados_hijo[posicion])
+            visitados_hijo.pop(posicion)
+            print('***SE IGNORA padre: ', visitados_padre[posicion])
+            ignorados_padre.append(visitados_padre[posicion])
+            visitados_padre.pop(posicion)
         visitar_hijo.pop(0)
         visitar_padre.pop(0)
         return 1
@@ -130,7 +138,7 @@ def verificar_nodo_final(nodo_actual, nodo_inicial,nodo_final):
         return 0
 
 def verificar_num_hijos(nodo_actual):
-    padre = nodo_actual[1]
+    padre = nodo_actual[1]#Bu
     print('Padre verificador num de hijos: ', padre)
     #Se obtiene la posicion de donde se encuentra el dato padre en la lista vistados_hijo
     posicion = visitados_hijo.index(padre)
@@ -146,53 +154,55 @@ def verificar_num_hijos(nodo_actual):
         return 0
 
 def agregar_visitados(nodo_actual):
-    hijo = nodo_actual[0]
+    hijo = nodo_actual[0]#Urz
     print('Hijo agregar visitados: ', hijo)
-    padre = nodo_actual[1]
+    padre = nodo_actual[1]#Buc
     print('Padre agregar visitados: ', padre)
     flag_esta = 0
     for i in range(len(visitados_padre)):
-        if padre in visitados_hijo[i]:
-            if hijo in visitados_padre[i]:
+        if hijo in visitados_hijo[i]:
+            if padre in visitados_padre[i]:
                 flag_esta = 1
     if flag_esta == 0:
         visitados_padre.append(padre)
         visitados_hijo.append(hijo)
-        print('Visitados: ', visitados_hijo, ':', visitados_padre)
+        print('Hijo Visitados: ', visitados_hijo)
+        print('Padre Visitados:', visitados_padre)
         return 1
     else:
         print('No se guarda. Ya existe')
-        print('Visitados: ', visitados_hijo, ':', visitados_padre)
+        print('Hijo Visitados: ', visitados_hijo)
+        print('Padre Visitados: ', visitados_padre)
         return 0
-    
 
 def agregar_hijos(nodo_actual):
-    hijo = nodo_actual[0]
+    hijo = nodo_actual[0]#Fag
     print('Hijo AGREGAR HIJOS: ', hijo)
     #Se hace uso de un diccionario auxliar para acceder a las siguiente llaves
     dicc_aux = cities.get(hijo)
-    #Por cada llave almacenada en el diccionario auxiliar
+    #Por cada llave (padre) almacenada en el diccionario auxiliar
     for key in dicc_aux.keys():
         #Bandera que nos ayudara a verificar existencia en la lista de ignorados
         #Se coloca aqui para volver a inicializarla cada vez que se encuentre otra llave
         flag_esta_ignorados = 0
         #Bucle que analiza si encuentra los datos en la listas ignorados
         for i in range(len(ignorados_hijo)):
-            if hijo in ignorados_hijo[i]:
-                if key in ignorados_padre[i]:
+            if key in ignorados_hijo[i]:
+                if hijo in ignorados_padre[i]:
                     print('Ignorados: ',i,hijo, key)
                     flag_esta_ignorados = 1
         #Bandera que nos ayudara a verificar existencia en la lista de visitados
+        print(flag_esta_ignorados)
         #Se coloca aqui para volver a inicializarla cada vez que se encuentre otra llave
         flag_esta_visitados = 0
         #Bucle que analiza si encuentra los datos en la listas visitados
         for j in range(len(visitados_padre)):
-            if hijo in visitados_hijo[j]:
-                if key in visitados_padre[j]:
+            if key in visitados_hijo[j]:
+                if hijo in visitados_padre[j]:
                     flag_esta_visitados = 1
-                    print('Visitados: ',j,hijo, key)
+                    print('Esta en visitados: ',j, hijo, key)
         #Condicional que agregara los datos analizados si no se encuentran en la lista de ignorados o en la lista de visitados
-        if flag_esta_ignorados == 0 or flag_esta_visitados == 0:
+        if flag_esta_ignorados == 0 and flag_esta_visitados == 0:
             visitar_hijo.append(key)
             visitar_padre.append(hijo)
             print('Agregando a visitar')
@@ -203,6 +213,7 @@ def agregar_hijos(nodo_actual):
             print('Ya se ha analizado')
             print('Hijos: ',visitar_hijo)
             print('Padres: ',visitar_padre)
+            
 #['Sib','Fag','Bu', 'Urz']
 def calcular_solucion():
     suma = 0
